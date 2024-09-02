@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: blog-oauth2
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: seakngim
+    password: Seakngim123$
+    url: jdbc:postgresql://localhost:5168/postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  security:
+    user:
+      name: user
+      password: password
+    oauth2:
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "oidc-client"
+              client-secret: "{noop}secret"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
+              post-logout-redirect-uris:
+                - "http://127.0.0.1:8080/"
+              scopes:
+                - "openid"
+                - "profile"
+            # don't submit consention
+            require-authorization-consent: true
